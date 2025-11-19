@@ -1,0 +1,61 @@
+CREATE TABLE students (
+    -- ข้อมูลนักเรียนพื้นฐาน (ส่วนที่ 1)
+    studentID VARCHAR(12) NOT NULL PRIMARY KEY COMMENT 'รหัสนักเรียน',
+    studentGender VARCHAR(4) NOT NULL COMMENT 'เพศ',
+    studentSect VARCHAR(10) NOT NULL,
+    studentNickname VARCHAR(20),
+    studentReligion VARCHAR(25),
+    studentCitizen VARCHAR(50),
+    studentPersonalID VARCHAR(13) NOT NULL UNIQUE COMMENT 'เลขบัตรประชาชน',
+    personalCardID VARCHAR(15), -- คอลัมน์ที่ซ้ำกับ studentPersonalID
+    nationalityID INT(2),
+    studentEthnicity VARCHAR(50),
+    studentReligion2 VARCHAR(20), -- คอลัมน์ที่ซ้ำกับ studentReligion
+    studentBirthday DATE,
+    studentAge INT(3),
+    studentEight INT(3), -- น่าจะเป็นส่วนสูง
+    studentBloodgroup VARCHAR(5),
+    studentLevel VARCHAR(5),
+    studentEntryYear VARCHAR(6),
+    majorID VARCHAR(8),
+    studentAdd TEXT, -- ที่อยู่ปัจจุบัน
+    studentProvince VARCHAR(50),
+    studentPrefecture VARCHAR(50),
+    studentZipcode VARCHAR(6),
+
+    -- ข้อมูลการติดต่อและผู้ปกครอง (ส่วนที่ 2)
+    studentPhone VARCHAR(10),
+    studentEmail VARCHAR(30),
+    studentFatname VARCHAR(50), -- ชื่อพ่อ
+    studentAther VARCHAR(50), -- ชื่ออื่น (ถ้ามี)
+    studentFatcareer VARCHAR(50), -- อาชีพพ่อ
+    studentFatsalary INT(10), -- เงินเดือนพ่อ
+    studentFatphone VARCHAR(12),
+    studentMatname VARCHAR(50), -- ชื่อแม่
+    studentMtser VARCHAR(50),
+    studentMosstatus VARCHAR(2),
+    studentMtcareer VARCHAR(50), -- อาชีพแม่
+    studentMtsalary INT(10), -- เงินเดือนแม่
+    studentMtphone VARCHAR(12),
+    studentParentry VARCHAR(15),
+    studentFather VARCHAR(50), -- ข้อมูลผู้ปกครอง (ซ้ำ)
+    studentFather2 VARCHAR(50), -- ข้อมูลผู้ปกครอง (ซ้ำ)
+    studentParser VARCHAR(50),
+    studentParphone VARCHAR(12),
+    studentParname VARCHAR(50),
+    studentParsalary INT(10),
+    studentPaiphone VARCHAR(13),
+    studentDrugcheck VARCHAR(1),
+    studentEmergency VARCHAR(1),
+    studentEntryNo INT(4),
+    studentEndstatus VARCHAR(2),
+    studentPicture VARCHAR(100),
+    studentPaymethod VARCHAR(100),
+    studentBankacc VARCHAR(100),
+    studentBankno VARCHAR(50),
+    studentPaydate DATETIME,
+    studentd INT(10),
+
+    -- การตั้งค่าเพิ่มเติม
+    INDEX idx_last_name (studentID) -- ใช้ studentID เป็นดัชนีเพิ่มเติมเพื่อความรวดเร็วในการค้นหา
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='ตารางข้อมูลนักเรียน';
