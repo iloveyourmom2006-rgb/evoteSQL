@@ -1,61 +1,125 @@
-CREATE TABLE students (
-    -- ข้อมูลนักเรียนพื้นฐาน (ส่วนที่ 1)
-    studentID VARCHAR(12) NOT NULL PRIMARY KEY COMMENT 'รหัสนักเรียน',
-    studentGender VARCHAR(4) NOT NULL COMMENT 'เพศ',
-    studentSect VARCHAR(10) NOT NULL,
-    studentNickname VARCHAR(20),
-    studentReligion VARCHAR(25),
-    studentCitizen VARCHAR(50),
-    studentPersonalID VARCHAR(13) NOT NULL UNIQUE COMMENT 'เลขบัตรประชาชน',
-    personalCardID VARCHAR(15), -- คอลัมน์ที่ซ้ำกับ studentPersonalID
-    nationalityID INT(2),
-    studentEthnicity VARCHAR(50),
-    studentReligion2 VARCHAR(20), -- คอลัมน์ที่ซ้ำกับ studentReligion
-    studentBirthday DATE,
-    studentAge INT(3),
-    studentEight INT(3), -- น่าจะเป็นส่วนสูง
-    studentBloodgroup VARCHAR(5),
-    studentLevel VARCHAR(5),
-    studentEntryYear VARCHAR(6),
-    majorID VARCHAR(8),
-    studentAdd TEXT, -- ที่อยู่ปัจจุบัน
-    studentProvince VARCHAR(50),
-    studentPrefecture VARCHAR(50),
-    studentZipcode VARCHAR(6),
+DROP TABLE IF EXISTS area;
+CREATE TABLE area (
+    areaID VARCHAR(6) NOT NULL PRIMARY KEY,
+    areaName VARCHAR(100) NOT NULL,
+    areaLevel VARCHAR(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-    -- ข้อมูลการติดต่อและผู้ปกครอง (ส่วนที่ 2)
-    studentPhone VARCHAR(10),
-    studentEmail VARCHAR(30),
-    studentFatname VARCHAR(50), -- ชื่อพ่อ
-    studentAther VARCHAR(50), -- ชื่ออื่น (ถ้ามี)
-    studentFatcareer VARCHAR(50), -- อาชีพพ่อ
-    studentFatsalary INT(10), -- เงินเดือนพ่อ
-    studentFatphone VARCHAR(12),
-    studentMatname VARCHAR(50), -- ชื่อแม่
-    studentMtser VARCHAR(50),
-    studentMosstatus VARCHAR(2),
-    studentMtcareer VARCHAR(50), -- อาชีพแม่
-    studentMtsalary INT(10), -- เงินเดือนแม่
-    studentMtphone VARCHAR(12),
-    studentParentry VARCHAR(15),
-    studentFather VARCHAR(50), -- ข้อมูลผู้ปกครอง (ซ้ำ)
-    studentFather2 VARCHAR(50), -- ข้อมูลผู้ปกครอง (ซ้ำ)
-    studentParser VARCHAR(50),
-    studentParphone VARCHAR(12),
-    studentParname VARCHAR(50),
-    studentParsalary INT(10),
-    studentPaiphone VARCHAR(13),
-    studentDrugcheck VARCHAR(1),
-    studentEmergency VARCHAR(1),
-    studentEntryNo INT(4),
-    studentEndstatus VARCHAR(2),
-    studentPicture VARCHAR(100),
-    studentPaymethod VARCHAR(100),
-    studentBankacc VARCHAR(100),
-    studentBankno VARCHAR(50),
-    studentPaydate DATETIME,
-    studentd INT(10),
 
-    -- การตั้งค่าเพิ่มเติม
-    INDEX idx_last_name (studentID) -- ใช้ studentID เป็นดัชนีเพิ่มเติมเพื่อความรวดเร็วในการค้นหา
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='ตารางข้อมูลนักเรียน';
+DROP TABLE IF EXISTS candidate;
+CREATE TABLE candidate (
+    candidateID TINYINT(3) NOT NULL PRIMARY KEY,
+    candidateName VARCHAR(100) NOT NULL,
+    candidateParty VARCHAR(100) NOT NULL,
+    candidateDetail TEXT NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+DROP TABLE IF EXISTS class;
+CREATE TABLE class (
+    classID VARCHAR(10) NOT NULL PRIMARY KEY DEFAULT '0',
+    className VARCHAR(50) DEFAULT NULL,
+    classAbbr VARCHAR(50) DEFAULT NULL,
+    majorID VARCHAR(8) DEFAULT NULL,
+    personnelID INT(5) DEFAULT NULL,
+    personnelID2 INT(5) DEFAULT NULL,
+    year INT(4) NOT NULL DEFAULT 0,
+    areaName VARCHAR(200) DEFAULT '0',
+    majorName VARCHAR(200) DEFAULT NULL,
+    classEnable TINYINT(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+DROP TABLE IF EXISTS major;
+CREATE TABLE major (
+    majorID VARCHAR(8) NOT NULL PRIMARY KEY,
+    majorName VARCHAR(100) NOT NULL,
+    areaID VARCHAR(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+DROP TABLE IF EXISTS student;
+CREATE TABLE student (
+    studentID VARCHAR(12) NOT NULL PRIMARY KEY,
+    studentGender VARCHAR(4) NOT NULL,
+    studentPrefix VARCHAR(8) NOT NULL,
+    studentName VARCHAR(25) NOT NULL,
+    studentSer VARCHAR(25) NOT NULL,
+    studentNickname VARCHAR(20) DEFAULT NULL,
+    studentNameEn VARCHAR(50) DEFAULT NULL,
+    studentSerEn VARCHAR(50) DEFAULT NULL,
+    personnelcardID VARCHAR(13) NOT NULL UNIQUE,
+    nationalityID INT(3) DEFAULT NULL,
+    studentEthnicity VARCHAR(50) DEFAULT NULL,
+    studentReligion VARCHAR(20) DEFAULT NULL,
+    studentBirthday DATE DEFAULT NULL,
+    studentHeight INT(3) DEFAULT NULL,
+    studentEeight TINYINT(3) DEFAULT NULL,
+    studentBloodgroup VARCHAR(5) DEFAULT NULL,
+    studentLevel VARCHAR(5) NOT NULL,
+    studentStartyear INT(4) NOT NULL,
+    areaID VARCHAR(6) DEFAULT NULL,
+    majorID VARCHAR(8) DEFAULT NULL,
+    studentAdd TEXT DEFAULT NULL,
+    studentDistrict VARCHAR(50) DEFAULT NULL,
+    studentPrefecture VARCHAR(50) DEFAULT NULL,
+    studentProvince VARCHAR(50) DEFAULT NULL,
+    studentZipcode VARCHAR(6) DEFAULT NULL,
+    studentPhone VARCHAR(10) DEFAULT NULL,
+    studentEmail VARCHAR(30) DEFAULT NULL,
+    studentFatname VARCHAR(50) DEFAULT NULL,
+    studentFatser VARCHAR(50) DEFAULT NULL,
+    studentFatstatus VARCHAR(2) DEFAULT NULL,
+    studentFatcareer VARCHAR(50) DEFAULT NULL,
+    studentFatsalary INT(10) DEFAULT NULL,
+    studentFatphone VARCHAR(13) DEFAULT NULL,
+    studentMotname VARCHAR(50) DEFAULT NULL,
+    studentMotser VARCHAR(50) DEFAULT NULL,
+    studentMotstatus VARCHAR(2) DEFAULT NULL,
+    studentMotcareer VARCHAR(50) DEFAULT NULL,
+    studentMotsalary INT(10) DEFAULT NULL,
+    studentMotphone VARCHAR(13) DEFAULT NULL,
+    studentFmmarry VARCHAR(2) DEFAULT NULL,
+    studentFmmaryother TEXT DEFAULT NULL,
+    studentParname VARCHAR(50) DEFAULT NULL,
+    studentParser VARCHAR(50) DEFAULT NULL,
+    studentParcareer VARCHAR(50) DEFAULT NULL,
+    studentParsalary INT(10) DEFAULT NULL,
+    studentParphone VARCHAR(13) DEFAULT NULL,
+    studentDrugscheck VARCHAR(1) DEFAULT NULL,
+    studentSuperiority TEXT DEFAULT NULL,
+    studentEndyear INT(4) NOT NULL,
+    studentEndstatus VARCHAR(2) NOT NULL,
+    studentPicture VARCHAR(100) DEFAULT NULL,
+    studentPaymethod VARCHAR(20) DEFAULT NULL,
+    studentBank VARCHAR(100) DEFAULT NULL,
+    studentBankno VARCHAR(50) DEFAULT NULL,
+    studentPaydate DATETIME DEFAULT NULL,
+    classID VARCHAR(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+DROP TABLE IF EXISTS studentvote;
+CREATE TABLE studentvote (
+    studentID VARCHAR(12) NOT NULL PRIMARY KEY,
+    studentvoteDate DATE NOT NULL,
+    studentvoteStatus TINYINT(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+DROP TABLE IF EXISTS user;
+CREATE TABLE user (
+    userID INT(10) NOT NULL PRIMARY KEY,
+    userName VARCHAR(50) NOT NULL,
+    userPass VARCHAR(50) NOT NULL,
+    userStatus VARCHAR(15) NOT NULL,
+    userFullname VARCHAR(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+DROP TABLE IF EXISTS vote;
+CREATE TABLE vote (
+    voteID INT(10) NOT NULL PRIMARY KEY,
+    voteDatetime DATETIME NOT NULL,
+    candidateID TINYINT(3) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
